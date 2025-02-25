@@ -1,13 +1,13 @@
-const images = [
-  "./imgs/text_01.jpg",
-  "./imgs/text_02.jpg",
-  "./imgs/text_03.jpg",
-  "./imgs/landscape_00.jpg",
-  "./imgs/fire_00.jpg",
-  "./imgs/fire_01.jpg",
-  "./imgs/fire_02.jpg",
-  "./imgs/fire_03.jpg",
-];
+const images = [];
+
+for (let i = 1; i < 18; i++) {
+  images.push(`./imgs/text_${("00".concat(i)).slice(-2)}.jpg`)
+}
+
+images.push("./imgs/landscape_00.jpg")
+for (let i = 0; i < 8; i++) {
+  images.push(`./imgs/apocalypse_${("00".concat(i)).slice(-2)}.jpg`)
+}
 
 window.addEventListener('load', () => {
   const container = document.getElementById('main-container');

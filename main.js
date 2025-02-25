@@ -1,6 +1,6 @@
 const images = [];
 
-for (let i = 1; i < 11; i++) {
+for (let i = 1; i < 12; i++) {
   images.push(`./imgs/text_${("00".concat(i)).slice(-2)}.jpg`)
 }
 
@@ -9,7 +9,7 @@ for (let i = 0; i < 8; i++) {
   images.push(`./imgs/apocalypse_${("00".concat(i)).slice(-2)}.jpg`)
 }
 
-for (let i = 12; i < 18; i++) {
+for (let i = 13; i < 25; i++) {
   images.push(`./imgs/text_${("00".concat(i)).slice(-2)}.jpg`)
 }
 

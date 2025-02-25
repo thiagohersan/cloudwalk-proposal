@@ -1,22 +1,61 @@
-const images = [];
+const SPEED_SLOW = 1;
+const SPEED_NORM = 2;
+const SPEED_FAST = 4;
+
+const imagePaths = [];
+const imageSpeeds = [];
+const imageEls = [];
+
+let nImgIdx = 1;
+let cSpeed = SPEED_NORM;
+let tSpeed = SPEED_NORM;
 
 for (let i = 1; i < 12; i++) {
-  images.push(`./imgs/text_${("00".concat(i)).slice(-2)}.jpg`)
+  imagePaths.push(`./imgs/text_${("00".concat(i)).slice(-2)}.jpg`)
+  if (i < 4) {
+    imageSpeeds.push(SPEED_NORM);
+  } else {
+    imageSpeeds.push(SPEED_FAST);
+  }
 }
 
-images.push("./imgs/landscape_00.jpg")
+imagePaths.push("./imgs/landscape_00.jpg")
+imageSpeeds.push(SPEED_FAST);
 for (let i = 0; i < 8; i++) {
-  images.push(`./imgs/apocalypse_${("00".concat(i)).slice(-2)}.jpg`)
+  imagePaths.push(`./imgs/apocalypse_${("00".concat(i)).slice(-2)}.jpg`)
+  imageSpeeds.push(SPEED_FAST);
 }
 
 for (let i = 13; i < 25; i++) {
-  images.push(`./imgs/text_${("00".concat(i)).slice(-2)}.jpg`)
+  imagePaths.push(`./imgs/text_${("00".concat(i)).slice(-2)}.jpg`)
+  if ((i > 15 && i < 18) || (i > 20 && i < 24)) {
+    imageSpeeds.push(SPEED_SLOW);
+  } else {
+    imageSpeeds.push(SPEED_FAST);
+  }
+}
+
+function elementPresent(element) {
+  const rect = element.getBoundingClientRect();
+  return (
+    rect.left <= (window.innerWidth || document.documentElement.clientWidth)
+  );
 }
 
 function slide() {
+  if (nImgIdx < imageEls.length) {
+    if (elementPresent(imageEls[nImgIdx])) {
+      console.log("new element", nImgIdx);
+      tSpeed = imageEls[nImgIdx].getAttribute("data-speed");
+      nImgIdx = (nImgIdx + 1) % imageEls.length;
+    }
+  }
+
+  cSpeed = 0.995 * cSpeed + 0.005 * tSpeed;
+
   const container = document.getElementById('main-container');
   const cML = parseInt(window.getComputedStyle(container)["marginLeft"]);
-  container.style.marginLeft = `${cML - 4}px`;
+  container.style.marginLeft = `${cML - cSpeed}px`;
   requestAnimationFrame(slide);
 }
 
@@ -24,15 +63,18 @@ window.addEventListener('load', () => {
   const container = document.getElementById('main-container');
   const startButt = document.getElementById('start-button');
 
-  images.forEach((imgPath) => {
+  imagePaths.forEach((imgPath, i) => {
     const imgDivEl = document.createElement("div");
     imgDivEl.classList.add("img-container");
+    imgDivEl.setAttribute("data-speed", imageSpeeds[i]);
     container.appendChild(imgDivEl);
 
     const imgEl = document.createElement("img");
     imgEl.setAttribute("src", `${imgPath}`);
     imgEl.classList.add("img-hor");
     imgDivEl.appendChild(imgEl);
+
+    imageEls.push(imgDivEl);
   });
 
   startButt.addEventListener("click", (ev) => {

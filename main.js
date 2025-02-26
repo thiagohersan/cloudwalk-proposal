@@ -45,17 +45,16 @@ function slide() {
       tSpeed = imageEls[nImgIdx].getAttribute("data-speed");
       nImgIdx = (nImgIdx + 1);
     }
+
+    cSpeed = 0.995 * cSpeed + 0.005 * tSpeed;
+
+    const container = document.getElementById('main-container');
+    const cML = parseInt(window.getComputedStyle(container)["marginLeft"]);
+    container.style.marginLeft = `${cML - parseInt(cSpeed)}px`;
+    requestAnimationFrame(slide);
   } else {
-    console.log("stop");
     tSpeed = 0;
   }
-
-  cSpeed = 0.995 * cSpeed + 0.005 * tSpeed;
-
-  const container = document.getElementById('main-container');
-  const cML = parseInt(window.getComputedStyle(container)["marginLeft"]);
-  container.style.marginLeft = `${cML - parseInt(cSpeed)}px`;
-  requestAnimationFrame(slide);
 }
 
 window.addEventListener('load', () => {

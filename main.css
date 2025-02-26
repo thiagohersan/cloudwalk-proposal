@@ -12,7 +12,7 @@ body,html {
 body {
   height: 100vh;
   overflow-y: hidden;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   background: #000;
 }
 
@@ -44,6 +44,7 @@ body {
   text-transform: uppercase;
   border-bottom: #fff 3px solid;
   font-size: 4vh;
+  display: none;
 }
 
 .button:hover {

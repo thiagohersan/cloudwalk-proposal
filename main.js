@@ -17,7 +17,7 @@ for (let i = 1; i < 12; i++) {
 
 imagePaths.push("./imgs/landscape_00.jpg")
 imageSpeeds.push(SPEED_FAST);
-for (let i = 0; i < 4; i++) {
+for (let i = 1; i < 4; i++) {
   imagePaths.push(`./imgs/apocalypse_${("00".concat(i)).slice(-2)}.jpg`);
   imageSpeeds.push(SPEED_FAST);
 }
